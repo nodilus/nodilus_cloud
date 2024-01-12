@@ -1,2 +1,2 @@
 # nodilus_cloud
-Cloud resources
+Cloud Resources
