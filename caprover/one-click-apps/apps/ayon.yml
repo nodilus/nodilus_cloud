@@ -4,8 +4,8 @@ services:
         image: postgres:$$cap_db_version
         restart: unless-stopped
         volumes:
-            - $$cap_appname-postgres:/var/lib/postgresql/data
             - /etc/localtime:/etc/localtime:ro
+            - $$cap_appname-postgres:/var/lib/postgresql/data
         environment:
             POSTGRES_USER: admin
             POSTGRES_PASSWORD: $$cap_db_password
@@ -13,7 +13,6 @@ services:
         expose:
             - 5432
         caproverExtra:
-            containerHttpPort: 5432
             notExposeAsWebApp: true
 
     $$cap_appname-redis:
@@ -24,7 +23,6 @@ services:
         expose:
             - 6379
         caproverExtra:
-            containerHttpPort: 6379
             notExposeAsWebApp: true
 
     $$cap_appname:
@@ -36,6 +34,7 @@ services:
         volumes:
             - $$cap_appname:/addons
             - $$cap_appname:/storage
+            - /etc/localtime:/etc/localtime:ro
         expose:
             - 5000
         ports:
@@ -47,12 +46,12 @@ caproverOneClickApp:
     variables:
         - id: $$cap_ayon_version
           label: Ayon Version
-          defaultValue: 1.0.2-20240131
+          defaultValue: 1.0.3-20240208
           description: Check out their Docker page for the valid tags https://hub.docker.com/r/ynput/ayon/tags
           validRegex: /^([^\\s^\\/])+$/
         - id: $$cap_db_version
           label: Postgres Version
-          defaultValue: 15.5
+          defaultValue: 15
           description: Check out their Docker page for the valid tags https://hub.docker.com/_/postgres/tags
           validRegex: /^([^\\s^\\/])+$/
         - id: $$cap_db_password
